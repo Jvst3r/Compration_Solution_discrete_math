@@ -34,7 +34,7 @@
                 Console.WriteLine("Каким то образом неполные частные не сошлись. Программа останавливается!");
                 return;
             }
-            Console.WriteLine("В целом сравнение частных нужно при ручной счёте, но эта программа и их проверяет! " +
+            Console.WriteLine("В целом сравнение частных нужно при ручном счёте, но эта программа и их проверяет! " +
                 "\n\nЧастные сошлись и равны: ");
             ArrToConsole(newQ);
             long PnMinus1 = ComprationSolver.GetPnMinus1Recursive(newQ);
@@ -96,7 +96,7 @@
             {
                 lastRemains = remains;
                 remains = biggest % less;
-                Console.WriteLine($"{i}   {biggest}     {less}      {biggest / less}       {remains}");
+                Console.WriteLine($"{i,1}   {biggest,4}     {less,4}      {biggest / less,4}       {remains,4}");
                 i++;
                 q.Add(biggest / less);
                 biggest = less;
@@ -115,6 +115,9 @@
 
             long currentPk = q[k] * prevPk + prevPkPrev;
 
+            string computation = $"{q[k]}·{prevPk} + {prevPkPrev}";
+            Console.WriteLine($"{k,2} | {q[k],2} | {currentPk,20} | {computation}");
+
             return (Pk: currentPk, PkPrev: prevPk);
         }
 
@@ -124,6 +127,8 @@
                 throw new ArgumentException("Нужно минимум 2 неполных частных для вычисления Pₙ₋₁.");
 
             int targetIndex = quotients.Count - 2;
+
+            Console.WriteLine("\nk | qk | Pk = qk*P(k-1)+P(k-2) | Вычисление");
 
             var (PnMinus1, _) = ComputePRecursive(quotients, targetIndex);
             return PnMinus1;
@@ -139,6 +144,6 @@
     {
         Console.Write("[");
         foreach (T item in arr) Console.Write($"{item} ");
-        Console.Write("]");
+        Console.Write("]\n");
     }
 }
